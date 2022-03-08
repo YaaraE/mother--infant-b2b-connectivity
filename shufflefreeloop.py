@@ -183,7 +183,9 @@ for esub1 in range(0,8):
                 data_2 = raw_2.get_data()
                 data_1 = np.take(data_1,np.random.permutation(data_1.shape[0]),axis=0,out=data_1)
                 data_combined = np.concatenate((data_1, data_2), axis=1)
-                info = mne.create_info(צתץ,raw_1.info['sfreq'])
+               info = mne.create_info(
+                     ch_names=raw_1.info['ch_names']+raw_1.info['ch_names'],
+                     ch_types=np.repeat('eeg', 16), sfreq=raw_1.info['sfreq'])
                 events = np.array([np.array([i, 0, i])
                        for i in range(data_combined.shape[0])])
                 events_id = dict(zip([str(x[0]) for x in events], [x[0] for x in events]))
